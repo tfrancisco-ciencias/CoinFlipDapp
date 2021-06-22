@@ -37,7 +37,7 @@ contract FlipDapp {
     uint time = block.timestamp;
     uint bet = msg.value;
     string memory outcome='a';
-
+    
 
     if(time % 2 == 0){
       msg.sender.transfer(bet*2);
