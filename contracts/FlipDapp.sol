@@ -32,12 +32,13 @@ contract FlipDapp {
   }
 
   // function that actually performs the flip
+
   function flip() payable public{
     require(msg.value <= 2000000000000000000, "Bet must be below 2");
     uint time = block.timestamp;
     uint bet = msg.value;
     string memory outcome='a';
-    
+
 
     if(time % 2 == 0){
       msg.sender.transfer(bet*2);
@@ -50,5 +51,4 @@ contract FlipDapp {
     }
     emit lastGameOutcome(outcome,bet);
   }
-
 }
