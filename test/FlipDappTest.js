@@ -16,4 +16,11 @@ contract("FlipDapp", async function(accounts){
     assert( ( (flipResult == true) && (beforePlayerBalance< afterPlayerBalance ) )
     || ((flipResult == false) && (afterPlayerBalance < beforePlayerBalance )))
   });
+  it("should update player balance", async function(){
+    let instance = await FlipDapp.deployed();
+    let testValue1 = await instance.tentMap(0);
+    assert(testValue1 === 0);
+  });
+
+
 });
