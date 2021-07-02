@@ -31,16 +31,40 @@ contract FlipDapp {
     return lastFlip[player];
   }
 
-  // function that actually performs the flip
 
-  function flip() payable public{
+// tent map
+
+  function tentMap(uint x) public pure returns (uint result){
+    require(x <= 97);
+    if( x <=  48){
+      result= 2*x;
+    }
+    else{
+      result = 2*(97-x);
+    }
+  }
+
+// iterations for tent Map
+ function interationTentMap(uint _initialValue, uint _lenght) public pure returns (uint result){
+     uint y=_initialValue;
+     for(uint i=0; i < _lenght ; i++){
+     y=tentMap(y);
+     }
+     result = y;
+     return result;
+ }
+
+
+
+// function that actually performs the flip
+function flip() payable public{
     require(msg.value <= 2000000000000000000, "Bet must be below 2");
     uint time = block.timestamp;
     uint bet = msg.value;
-    string memory outcome='a';
+    string memory outcome;
+    uint z=interationTentMap((bet+time)% 97 , (bet + time) % 101);
 
-
-    if(time % 2 == 0){
+    if(z <= 48){
       msg.sender.transfer(bet*2);
       lastFlip[msg.sender] = true;
       outcome ="win";
