@@ -57,7 +57,7 @@ contract FlipDapp {
 
 
 // function that actually performs the flip
-  function flip() payable public{
+function flip() payable public{
     require(msg.value <= 2000000000000000000, "Bet must be below 2");
     uint time = block.timestamp;
     uint bet = msg.value;
