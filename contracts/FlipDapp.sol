@@ -15,11 +15,11 @@ contract FlipDapp {
   event lastGameOutcome(string outcome, uint bet);
 
   // function that recevies initial deposit of contrat to have cash to initiate
-  // game
+  // game, it is external visibility since it is used only by external contract
+  // at time of initial deposit
 
-  function initialDeposit() payable public {
+  function initialDeposit() payable external {
   }
-
 
   // function that get balance of contract address
   function getBalance()  public view returns (uint){
@@ -62,17 +62,22 @@ function flip() payable public{
     uint time = block.timestamp;
     uint bet = msg.value;
     string memory outcome;
-    uint z=interationTentMap((bet+time)% 97 , (bet + time) % 101);
+    uint z=0;
+
+    z=interationTentMap((bet+time)% 97 , (bet + time) % 101);
 
     if(z <= 48){
       msg.sender.transfer(bet*2);
       lastFlip[msg.sender] = true;
       outcome ="win";
+      z=0;
     }
     else{
       lastFlip[msg.sender] = false;
       outcome = "lose";
+      z=0;
     }
+    assert(z==0);
     emit lastGameOutcome(outcome,bet);
   }
 }
